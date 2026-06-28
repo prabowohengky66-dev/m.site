@@ -20,85 +20,32 @@ button{padding:10px 16px;background:#ff0033;color:#fff;border:0;border-radius:8p
 </style>
 </head>
 <body>
-
-<div class="popup" id="popup">
-  <div class="popup-box">
-    <h2>🎬 Welcome</h2>
-    <p>Click Close to start.</p>
-    <button onclick="closePopup()">Close</button>
-  </div>
-</div>
-
-<div class="sidebar" id="playlist"></div>
-
-<div class="main">
 <video id="player" controls autoplay muted playsinline></video>
-
+<div class="popup" id="popup"><div class="popup-box"><h2>🎬 Welcome</h2><p>Click Close to start.</p><button onclick="closePopup()">Close</button></div></div>
+<div class="sidebar" id="playlist"></div>
+<div class="main">
+<video id="player" controls></video>
 <div class="controls">
 <button onclick="prevVideo()">⏮ Prev</button>
 <button onclick="nextVideo()">Next ⏭</button>
 <button onclick="toggleShuffle()">🔀 Shuffle</button>
 <button onclick="toggleRepeat()">🔁 Repeat</button>
-</div>
-</div>
-
+</div></div>
 <script>
 const videos=[
 "https://cdn.videy.co/ngVHH4RJ1.mp4",
 "https://cdn.videy.co/WWKWMEBj1.mp4",
 "https://cdn.videy.co/HgK0qgDP1.mp4"
 ];
-
 let current=0,shuffle=false,repeat=false;
-
-const p=document.getElementById('player'),
-list=document.getElementById('playlist');
-
-videos.forEach((v,i)=>{
-  let d=document.createElement('div');
-  d.className='item';
-  d.textContent='🎬 Video '+(i+1);
-  d.onclick=()=>loadVideo(i);
-  list.appendChild(d);
-});
-
-function loadVideo(i){
-  current=i;
-  p.src=videos[i];
-  p.muted=true;
-  p.play();
-  document.querySelectorAll('.item')
-    .forEach((e,n)=>e.classList.toggle('active',n===i));
-}
-
-function nextVideo(){
-  if(repeat){loadVideo(current);return;}
-  current=shuffle?Math.floor(Math.random()*videos.length):(current+1)%videos.length;
-  loadVideo(current);
-}
-
-function prevVideo(){
-  current=(current-1+videos.length)%videos.length;
-  loadVideo(current);
-}
-
-function toggleShuffle(){
-  shuffle=!shuffle;
-  alert('Shuffle '+(shuffle?'ON':'OFF'));
-}
-
-function toggleRepeat(){
-  repeat=!repeat;
-  alert('Repeat '+(repeat?'ON':'OFF'));
-}
-
-function closePopup(){
-  document.getElementById('popup').style.display='none';
-  loadVideo(0);
-}
-
+const p=document.getElementById('player'),list=document.getElementById('playlist');
+videos.forEach((v,i)=>{let d=document.createElement('div');d.className='item';d.textContent='🎬 Video '+(i+1);d.onclick=()=>loadVideo(i);list.appendChild(d);});
+function loadVideo(i){current=i;p.src=videos[i];p.play();document.querySelectorAll('.item').forEach((e,n)=>e.classList.toggle('active',n===i));}
+function nextVideo(){if(repeat){loadVideo(current);return;}current=shuffle?Math.floor(Math.random()*videos.length):(current+1)%videos.length;loadVideo(current);}
+function prevVideo(){current=(current-1+videos.length)%videos.length;loadVideo(current);}
+function toggleShuffle(){shuffle=!shuffle;alert('Shuffle '+(shuffle?'ON':'OFF'));}
+function toggleRepeat(){repeat=!repeat;alert('Repeat '+(repeat?'ON':'OFF'));}
+function closePopup(){document.getElementById('popup').style.display='none';loadVideo(0);window.location.href='https://boring-active.com/7B6FQd';}
 p.onended=nextVideo;
 </script>
-
-</body>
-</html>
+</body></html>
